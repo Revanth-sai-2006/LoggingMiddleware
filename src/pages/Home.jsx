@@ -1,5 +1,22 @@
 import React, { useEffect } from "react";
 import { Log } from "../middleware/logger";
+import {
+  Box,
+  Card,
+  CardContent,
+  Grid,
+  Typography,
+  Container,
+  Paper,
+} from "@mui/material";
+import {
+  Security as SecurityIcon,
+  Edit as EditIcon,
+  People as PeopleIcon,
+  Dashboard as DashboardIcon,
+  API as APIIcon,
+  Flash as FlashIcon,
+} from "@mui/icons-material";
 
 const Home = () => {
   useEffect(() => {
@@ -19,61 +36,111 @@ const Home = () => {
     logPageLoad();
   }, []);
 
+  const features = [
+    {
+      icon: SecurityIcon,
+      title: "🔐 Authentication",
+      description: "Test login functionality with comprehensive logging of auth events.",
+    },
+    {
+      icon: EditIcon,
+      title: "📝 Registration",
+      description: "User registration form with form validation and event logging.",
+    },
+    {
+      icon: PeopleIcon,
+      title: "👥 User Management",
+      description: "Browse and interact with users while all actions are logged.",
+    },
+    {
+      icon: DashboardIcon,
+      title: "📊 Dashboard",
+      description: "Interactive dashboard with state changes and theme management logging.",
+    },
+    {
+      icon: APIIcon,
+      title: "🔗 API Integration",
+      description: "Real API calls to JSONPlaceholder with comprehensive logging.",
+    },
+    {
+      icon: FlashIcon,
+      title: "⚡ Custom Hooks",
+      description: "Custom React hooks with built-in logging for common patterns.",
+    },
+  ];
+
   return (
-    <div>
-      <h2>Welcome to Frontend Logging System</h2>
-
-      <div style={{ marginBottom: "30px", lineHeight: "1.6" }}>
-        <p>
-          This application demonstrates a comprehensive logging system built with React and Vite.
+    <Container maxWidth="lg">
+      <Box sx={{ mb: 4 }}>
+        <Typography variant="h4" component="h2" gutterBottom sx={{ fontWeight: "bold" }}>
+          Welcome to Frontend Logging System
+        </Typography>
+        <Typography variant="body1" color="textSecondary" sx={{ mb: 3 }}>
+          This application demonstrates a comprehensive logging system built with React, Vite, and Material UI.
           Every action, navigation, API call, and state change is logged and sent to the evaluation service.
-        </p>
-      </div>
+        </Typography>
+      </Box>
 
-      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "20px", marginBottom: "30px" }}>
-        <div style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #ddd" }}>
-          <h3>🔐 Authentication</h3>
-          <p>Test login functionality with comprehensive logging of auth events.</p>
-        </div>
+      <Grid container spacing={3} sx={{ mb: 4 }}>
+        {features.map((feature, index) => {
+          const Icon = feature.icon;
+          return (
+            <Grid item xs={12} sm={6} md={4} key={index}>
+              <Card
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "all 0.3s",
+                  "&:hover": {
+                    boxShadow: 4,
+                    transform: "translateY(-4px)",
+                  },
+                }}
+              >
+                <CardContent sx={{ flex: 1 }}>
+                  <Box sx={{ display: "flex", alignItems: "center", mb: 2 }}>
+                    <Icon sx={{ mr: 1, color: "primary.main" }} />
+                    <Typography variant="h6" component="h3">
+                      {feature.title}
+                    </Typography>
+                  </Box>
+                  <Typography variant="body2" color="textSecondary">
+                    {feature.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          );
+        })}
+      </Grid>
 
-        <div style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #ddd" }}>
-          <h3>📝 Registration</h3>
-          <p>User registration form with form validation and event logging.</p>
-        </div>
+      <Paper sx={{ p: 3, backgroundColor: "#f0f7ff", border: "1px solid #90caf9" }}>
+        <Typography variant="h6" component="h3" gutterBottom sx={{ fontWeight: "bold" }}>
+          📊 Logging Information
+        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: 1 }}>
+          <Typography variant="body2">
+            <strong>API Endpoint:</strong> http://4.224.186.213/evaluation-service/logs
+          </Typography>
+          <Typography variant="body2">
+            <strong>Log Format:</strong> JSON with stack, level, package, and message
+          </Typography>
+          <Typography variant="body2">
+            <strong>Log Levels:</strong> debug, info, warn, error, fatal
+          </Typography>
+          <Typography variant="body2">
+            <strong>Packages:</strong> api, component, hook, page, state, style, auth, config, middleware, utils
+          </Typography>
+        </Box>
+      </Paper>
 
-        <div style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #ddd" }}>
-          <h3>👥 User Management</h3>
-          <p>Browse and interact with users while all actions are logged.</p>
-        </div>
-
-        <div style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #ddd" }}>
-          <h3>📊 Dashboard</h3>
-          <p>Interactive dashboard with state changes and theme management logging.</p>
-        </div>
-
-        <div style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #ddd" }}>
-          <h3>🔗 API Integration</h3>
-          <p>Real API calls to JSONPlaceholder with comprehensive logging.</p>
-        </div>
-
-        <div style={{ padding: "20px", backgroundColor: "#f8f9fa", borderRadius: "8px", border: "1px solid #ddd" }}>
-          <h3>⚡ Custom Hooks</h3>
-          <p>Custom React hooks with built-in logging for common patterns.</p>
-        </div>
-      </div>
-
-      <div style={{ backgroundColor: "#e7f3ff", padding: "20px", borderRadius: "8px", border: "1px solid #b3d9ff" }}>
-        <h3>📊 Logging Information</h3>
-        <p><strong>API Endpoint:</strong> http://4.224.186.213/evaluation-service/logs</p>
-        <p><strong>Log Format:</strong> JSON with stack, level, package, and message</p>
-        <p><strong>Log Levels:</strong> debug, info, warn, error, fatal</p>
-        <p><strong>Packages:</strong> api, component, hook, page, state, style, auth, config, middleware, utils</p>
-      </div>
-
-      <div style={{ marginTop: "30px", textAlign: "center", color: "#666", fontSize: "14px" }}>
-        <p>Open Developer Console (F12) to see all logged events in real-time</p>
-      </div>
-    </div>
+      <Box sx={{ mt: 4, p: 2, textAlign: "center", color: "#666" }}>
+        <Typography variant="body2">
+          Open Developer Console (F12) to see all logged events in real-time
+        </Typography>
+      </Box>
+    </Container>
   );
 };
 

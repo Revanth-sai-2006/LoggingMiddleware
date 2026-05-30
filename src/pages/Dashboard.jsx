@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import { Log } from "../middleware/logger";
+import {
+  Box,
+  Card,
+  CardContent,
+  Button,
+  Typography,
+  Alert,
+  Stack,
+  Chip,
+  Grid,
+  Paper,
+} from "@mui/material";
+import {
+  Brightness4 as DarkIcon,
+  Brightness7 as LightIcon,
+  Info as InfoIcon,
+} from "@mui/icons-material";
 
-/**
- * Dashboard Component that showcases various logging scenarios
- */
 const Dashboard = () => {
   const [theme, setTheme] = useState("light");
   const [notifications, setNotifications] = useState([]);
@@ -43,7 +57,6 @@ const Dashboard = () => {
         "User clicked View Details"
       );
 
-      // Simulate action
       const notif = "Details loaded successfully";
       setNotifications((prev) => [...prev, notif]);
 
@@ -60,82 +73,130 @@ const Dashboard = () => {
     }
   };
 
-  const bgColor = theme === "dark" ? "#333" : "#f9f9f9";
-  const textColor = theme === "dark" ? "#fff" : "#333";
+  const isDark = theme === "dark";
 
   return (
-    <div
-      style={{
-        backgroundColor: bgColor,
-        color: textColor,
-        padding: "20px",
-        borderRadius: "8px",
-        marginTop: "20px",
-      }}
-    >
-      <h2>Dashboard</h2>
+    <Box>
+      <Typography variant="h4" gutterBottom sx={{ mb: 3, fontWeight: "bold" }}>
+        Dashboard
+      </Typography>
 
       {notifications.length > 0 && (
-        <div
-          style={{
-            backgroundColor: "#d4edda",
-            color: "#155724",
-            padding: "10px",
-            borderRadius: "4px",
-            marginBottom: "15px",
-          }}
-        >
+        <Box sx={{ mb: 2 }}>
           {notifications.map((notif, idx) => (
-            <div key={idx}>✓ {notif}</div>
+            <Alert key={idx} severity="success" icon={<InfoIcon />} sx={{ mb: 1 }}>
+              ✓ {notif}
+            </Alert>
           ))}
-        </div>
+        </Box>
       )}
 
-      <div style={{ marginBottom: "20px" }}>
-        <p>Current Theme: {theme}</p>
-        <button
-          onClick={() => handleThemeChange(theme === "light" ? "dark" : "light")}
-          style={{
-            padding: "8px 16px",
-            marginRight: "10px",
-            backgroundColor: theme === "dark" ? "#555" : "#ddd",
-            color: theme === "dark" ? "#fff" : "#000",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Toggle Theme
-        </button>
-        <button
-          onClick={handleViewDetails}
-          style={{
-            padding: "8px 16px",
-            backgroundColor: "#007bff",
-            color: "white",
-            border: "none",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          View Details
-        </button>
-      </div>
+      <Grid container spacing={3} sx={{ mb: 3 }}>
+        <Grid item xs={12} sm={6}>
+          <Card>
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                Current Theme
+              </Typography>
+              <Chip
+                label={`${theme.charAt(0).toUpperCase() + theme.slice(1)} Mode`}
+                color={isDark ? "default" : "primary"}
+                variant="outlined"
+                sx={{ mb: 2 }}
+              />
+              <Stack direction="row" spacing={1}>
+                <Button
+                  variant={theme === "light" ? "contained" : "outlined"}
+                  onClick={() => handleThemeChange("light")}
+                  startIcon={<LightIcon />}
+                >
+                  Light
+                </Button>
+                <Button
+                  variant={theme === "dark" ? "contained" : "outlined"}
+                  onClick={() => handleThemeChange("dark")}
+                  startIcon={<DarkIcon />}
+                >
+                  Dark
+                </Button>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
 
-      <div
-        style={{
-          backgroundColor: theme === "dark" ? "#555" : "#fff",
-          padding: "15px",
-          borderRadius: "4px",
-          border: `1px solid ${theme === "dark" ? "#777" : "#ddd"}`,
+        <Grid item xs={12} sm={6}>
+          <Card>
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                Quick Actions
+              </Typography>
+              <Button
+                variant="contained"
+                color="info"
+                onClick={handleViewDetails}
+                fullWidth
+              >
+                View Details
+              </Button>
+            </CardContent>
+          </Card>
+        </Grid>
+      </Grid>
+
+      <Paper
+        sx={{
+          p: 3,
+          backgroundColor: isDark ? "#1e1e1e" : "#f5f5f5",
+          color: isDark ? "#fff" : "#333",
         }}
       >
-        <h3>Dashboard Statistics</h3>
-        <p>Active Users: 1,234</p>
-        <p>Total Events Logged: {Math.floor(Math.random() * 10000)}</p>
-        <p>System Status: ✓ Online</p>
-      </div>
-    </div>
+        <Typography variant="h6" gutterBottom sx={{ fontWeight: "bold" }}>
+          Dashboard Statistics
+        </Typography>
+        <Grid container spacing={2} sx={{ mt: 1 }}>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ p: 2, backgroundColor: isDark ? "#2a2a2a" : "#fff", borderRadius: 1 }}>
+              <Typography color="textSecondary" variant="body2">
+                Active Users
+              </Typography>
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+                1,234
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ p: 2, backgroundColor: isDark ? "#2a2a2a" : "#fff", borderRadius: 1 }}>
+              <Typography color="textSecondary" variant="body2">
+                Total Events Logged
+              </Typography>
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+                {Math.floor(Math.random() * 10000)}
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ p: 2, backgroundColor: isDark ? "#2a2a2a" : "#fff", borderRadius: 1 }}>
+              <Typography color="textSecondary" variant="body2">
+                System Status
+              </Typography>
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#4caf50" }}>
+                ✓ Online
+              </Typography>
+            </Box>
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <Box sx={{ p: 2, backgroundColor: isDark ? "#2a2a2a" : "#fff", borderRadius: 1 }}>
+              <Typography color="textSecondary" variant="body2">
+                Uptime
+              </Typography>
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+                99.9%
+              </Typography>
+            </Box>
+          </Grid>
+        </Grid>
+      </Paper>
+    </Box>
   );
 };
 

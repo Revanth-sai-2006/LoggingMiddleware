@@ -6,7 +6,22 @@ import UserList from "./components/UserList";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import "./styles/App.css";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  Box,
+  Button,
+  Footer,
+} from "@mui/material";
+import {
+  Home as HomeIcon,
+  Login as LoginIcon,
+  AppRegistration as RegisterIcon,
+  People as PeopleIcon,
+  Dashboard as DashboardIcon,
+} from "@mui/icons-material";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("home");
@@ -30,72 +45,95 @@ function App() {
     }
   };
 
+  const navItems = [
+    { id: "home", label: "Home", icon: HomeIcon },
+    { id: "login", label: "Login", icon: LoginIcon },
+    { id: "register", label: "Register", icon: RegisterIcon },
+    { id: "users", label: "Users", icon: PeopleIcon },
+    { id: "dashboard", label: "Dashboard", icon: DashboardIcon },
+  ];
+
   return (
     <ErrorBoundary>
-      <div className="app-container">
-        <header>
-          <h1>Frontend Logging System</h1>
-          <nav className="nav-buttons">
-            <button
-              onClick={() => handleNavigation("home")}
-              className={currentPage === "home" ? "active" : ""}
-            >
-              Home
-            </button>
-            <button
-              onClick={() => handleNavigation("login")}
-              className={currentPage === "login" ? "active" : ""}
-            >
-              Login
-            </button>
-            <button
-              onClick={() => handleNavigation("register")}
-              className={currentPage === "register" ? "active" : ""}
-            >
-              Register
-            </button>
-            <button
-              onClick={() => handleNavigation("users")}
-              className={currentPage === "users" ? "active" : ""}
-            >
-              Users
-            </button>
-            <button
-              onClick={() => handleNavigation("dashboard")}
-              className={currentPage === "dashboard" ? "active" : ""}
-            >
-              Dashboard
-            </button>
-          </nav>
-        </header>
+      <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
+        {/* AppBar Header */}
+        <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
+          <Toolbar>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              Frontend Logging System
+            </Typography>
+          </Toolbar>
+        </AppBar>
 
-        <main>
+        {/* Navigation Buttons */}
+        <AppBar position="static" sx={{ backgroundColor: "#f5f5f5" }} elevation={1}>
+          <Toolbar sx={{ justifyContent: "flex-start", gap: 1, flexWrap: "wrap" }}>
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Button
+                  key={item.id}
+                  onClick={() => handleNavigation(item.id)}
+                  variant={currentPage === item.id ? "contained" : "outlined"}
+                  color={currentPage === item.id ? "primary" : "inherit"}
+                  startIcon={<Icon />}
+                  sx={{
+                    color: currentPage === item.id ? "white" : "#333",
+                    borderColor: currentPage === item.id ? "#1976d2" : "#ddd",
+                  }}
+                >
+                  {item.label}
+                </Button>
+              );
+            })}
+          </Toolbar>
+        </AppBar>
+
+        {/* Main Content */}
+        <Container maxWidth="lg" sx={{ py: 4, flex: 1 }}>
           {currentPage === "home" && <Home />}
           {currentPage === "login" && (
-            <div>
-              <h2>Login</h2>
+            <Box>
+              <Typography variant="h4" sx={{ mb: 3 }}>
+                Login
+              </Typography>
               <LoginButton />
-            </div>
+            </Box>
           )}
           {currentPage === "register" && (
-            <div>
-              <h2>User Registration</h2>
+            <Box>
+              <Typography variant="h4" sx={{ mb: 3 }}>
+                User Registration
+              </Typography>
               <RegisterForm />
-            </div>
+            </Box>
           )}
           {currentPage === "users" && (
-            <div>
-              <h2>Browse Users</h2>
+            <Box>
+              <Typography variant="h4" sx={{ mb: 3 }}>
+                Browse Users
+              </Typography>
               <UserList />
-            </div>
+            </Box>
           )}
           {currentPage === "dashboard" && <Dashboard />}
-        </main>
+        </Container>
 
-        <footer style={{ marginTop: "40px", padding: "20px", borderTop: "1px solid #ddd", textAlign: "center", color: "#666", fontSize: "14px" }}>
-          <p>Frontend Logging System v1.0 | All events are being logged</p>
-        </footer>
-      </div>
+        {/* Footer */}
+        <Box
+          sx={{
+            backgroundColor: "#f9f9f9",
+            borderTop: "1px solid #ddd",
+            py: 3,
+            mt: "auto",
+            textAlign: "center",
+          }}
+        >
+          <Typography variant="body2" color="textSecondary">
+            Frontend Logging System v1.0 | All events are being logged
+          </Typography>
+        </Box>
+      </Box>
     </ErrorBoundary>
   );
 }

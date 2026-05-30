@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import { Log } from "../middleware/logger";
 import { useForm } from "../hooks/useForm";
+import {
+  Box,
+  TextField,
+  Button,
+  Alert,
+  Card,
+  CardContent,
+  Stack,
+  CircularProgress,
+} from "@mui/material";
+import { AppRegistration as RegisterIcon } from "@mui/icons-material";
 
-/**
- * User Registration Component with comprehensive logging
- */
 const RegisterForm = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = async (values) => {
     try {
+      setLoading(true);
       await Log(
         "frontend",
         "info",
@@ -36,6 +46,8 @@ const RegisterForm = () => {
         "component",
         `Registration failed: ${error.message}`
       );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,74 +57,59 @@ const RegisterForm = () => {
   );
 
   return (
-    <div
-      style={{
-        maxWidth: "400px",
-        margin: "20px 0",
-        padding: "20px",
-        border: "1px solid #ddd",
-        borderRadius: "8px",
-      }}
-    >
-      <h3>Register</h3>
-      {submitted && (
-        <div
-          style={{
-            backgroundColor: "#d4edda",
-            color: "#155724",
-            padding: "10px",
-            borderRadius: "4px",
-            marginBottom: "10px",
-          }}
-        >
-          ✅ Registration successful!
-        </div>
-      )}
-      <form onSubmit={handleSubmit}>
-        <div style={{ marginBottom: "10px" }}>
-          <label>
-            Email:
-            <input
+    <Card sx={{ maxWidth: 500, mx: "auto", mt: 2 }}>
+      <CardContent>
+        {submitted && (
+          <Alert severity="success" sx={{ mb: 2 }}>
+            ✅ Registration successful!
+          </Alert>
+        )}
+        <Box component="form" onSubmit={handleSubmit} noValidate>
+          <Stack spacing={2}>
+            <TextField
+              fullWidth
               type="email"
+              label="Email"
               name="email"
               value={values.email}
               onChange={handleChange}
+              variant="outlined"
               required
-              style={{ marginLeft: "10px", padding: "5px", width: "200px" }}
             />
-          </label>
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label>
-            Password:
-            <input
+            <TextField
+              fullWidth
               type="password"
+              label="Password"
               name="password"
               value={values.password}
               onChange={handleChange}
+              variant="outlined"
               required
-              style={{ marginLeft: "10px", padding: "5px", width: "200px" }}
             />
-          </label>
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label>
-            Confirm Password:
-            <input
+            <TextField
+              fullWidth
               type="password"
+              label="Confirm Password"
               name="confirmPassword"
               value={values.confirmPassword}
               onChange={handleChange}
+              variant="outlined"
               required
-              style={{ marginLeft: "10px", padding: "5px", width: "200px" }}
             />
-          </label>
-        </div>
-        <button type="submit" style={{ padding: "8px 16px" }}>
-          Register
-        </button>
-      </form>
-    </div>
+            <Button
+              fullWidth
+              variant="contained"
+              type="submit"
+              disabled={loading}
+              endIcon={loading ? <CircularProgress size={20} /> : <RegisterIcon />}
+              sx={{ mt: 2 }}
+            >
+              {loading ? "Processing..." : "Register"}
+            </Button>
+          </Stack>
+        </Box>
+      </CardContent>
+    </Card>
   );
 };
 

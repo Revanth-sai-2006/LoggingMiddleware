@@ -1,9 +1,14 @@
 import React from "react";
 import { Log } from "../middleware/logger";
+import { Button, Box, CircularProgress } from "@mui/material";
+import { Login as LoginIcon } from "@mui/icons-material";
 
 const LoginButton = () => {
+  const [loading, setLoading] = React.useState(false);
+
   const handleClick = async () => {
     try {
+      setLoading(true);
       await Log(
         "frontend",
         "info",
@@ -18,13 +23,24 @@ const LoginButton = () => {
         "component",
         `Login button click failed: ${error.message}`
       );
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <button onClick={handleClick} style={{ padding: "10px 20px", fontSize: "16px" }}>
-      Login
-    </button>
+    <Box sx={{ mt: 2 }}>
+      <Button
+        onClick={handleClick}
+        disabled={loading}
+        variant="contained"
+        size="large"
+        endIcon={loading ? <CircularProgress size={20} /> : <LoginIcon />}
+        sx={{ padding: "10px 30px", fontSize: "16px" }}
+      >
+        {loading ? "Processing..." : "Login"}
+      </Button>
+    </Box>
   );
 };
 

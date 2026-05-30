@@ -1,9 +1,8 @@
 import React from "react";
 import { Log } from "../middleware/logger";
+import { Alert, Box } from "@mui/material";
+import { Error as ErrorIcon } from "@mui/icons-material";
 
-/**
- * Error Boundary Component for catching and logging errors
- */
 class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
@@ -27,20 +26,14 @@ class ErrorBoundary extends React.Component {
   render() {
     if (this.state.hasError) {
       return (
-        <div
-          style={{
-            padding: "20px",
-            backgroundColor: "#f8d7da",
-            border: "1px solid #f5c6cb",
-            borderRadius: "4px",
-            color: "#721c24",
-          }}
-        >
-          <h2>Oops! Something went wrong</h2>
-          <details style={{ whiteSpace: "pre-wrap" }}>
-            {this.state.error && this.state.error.toString()}
-          </details>
-        </div>
+        <Box sx={{ p: 2, m: 2 }}>
+          <Alert severity="error" icon={<ErrorIcon />}>
+            <strong>Oops! Something went wrong</strong>
+            <details style={{ whiteSpace: "pre-wrap", marginTop: "10px" }}>
+              {this.state.error && this.state.error.toString()}
+            </details>
+          </Alert>
+        </Box>
       );
     }
 
