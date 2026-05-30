@@ -1,196 +1,357 @@
 # Frontend Logging Middleware - Implementation Stages
 
-## Stage 1: Basic Logging Setup ✅
+--------------------------------------------------
 
-**Objective**: Create a functional logging system with the core `Log()` function and basic integration examples.
+# Stage 1: Basic Logging Setup
 
-**What's Included:**
-- ✅ Reusable `Log()` middleware function in `src/middleware/logger.js`
-- ✅ Proper API integration with `http://4.224.186.213/evaluation-service/logs`
-- ✅ Example component with logging (LoginButton)
-- ✅ Example API integration (userApi.js)
-- ✅ Example page with logging (Home.jsx)
-- ✅ Project structure with proper folders
-- ✅ Build configuration (Vite, package.json)
-- ✅ CSS styling and basic UI
+Objective:
+Create a functional logging system with the core Log() function and basic integration examples.
 
-**Key Features:**
-- Log function with parameters: `Log(stack, level, packageName, message)`
-- All values are lowercase and follow exact specification
-- Async logging that doesn't block UI
-- Error handling and graceful failure
+--------------------------------------------------
+
+## What's Included
+
+- Reusable Log() middleware function in src/middleware/logger.js
+- Proper API integration with:
+  http://4.224.186.213/evaluation-service/logs
+- Example component with logging (LoginButton)
+- Example API integration (userApi.js)
+- Example page with logging (Home.jsx)
+- Proper folder structure
+- Build configuration using Vite
+- CSS styling and basic UI
+
+--------------------------------------------------
+
+## Key Features
+
+- Log function:
+  
+```javascript
+Log(stack, level, packageName, message)
+```
+
+- All values are lowercase
+- Async logging support
+- Non-blocking UI
+- Error handling
 - Console logging for debugging
 
-**Deliverables:**
-```
+--------------------------------------------------
+
+## Deliverables
+
+```plaintext
 Stage 1 Implementation includes:
-├── src/middleware/logger.js           (Core logging function)
-├── src/components/LoginButton.jsx     (Component with logging)
-├── src/api/userApi.js                 (API calls with logging)
-├── src/pages/Home.jsx                 (Page loading with logging)
-├── src/App.jsx                        (Main app component)
-├── src/main.jsx                       (React entry point)
-├── src/styles/                        (CSS files)
-├── package.json                       (Dependencies)
-├── vite.config.js                     (Build config)
-└── README.md                          (Documentation)
+
+├── src/middleware/logger.js
+├── src/components/LoginButton.jsx
+├── src/api/userApi.js
+├── src/pages/Home.jsx
+├── src/App.jsx
+├── src/main.jsx
+├── src/styles/
+├── package.json
+├── vite.config.js
+└── README.md
 ```
 
-**Testing Stage 1:**
-1. Start dev server: `npm run dev`
-2. Open http://localhost:3000/
-3. Click "Login" button - should log to console
-4. Logs should POST to the evaluation API
+--------------------------------------------------
 
----
+## Testing Stage 1
 
-## Stage 2: Enhanced Logging Features 🚀
-
-**Objective**: Expand logging coverage with advanced hooks, utilities, and better state management.
-
-**What's Added:**
-- ✅ Custom hooks with logging:
-  - `useForm` - Form state management with logging
-  - `useFetch` - Data fetching with logging
-- ✅ Utility functions with logging:
-  - `storage.js` - localStorage operations with logging
-- ✅ Authentication utilities:
-  - `auth/authUtils.js` - Login/logout/token verification with logging
-- ✅ Configuration management:
-  - `config/config.js` - App configuration with logging
-- ✅ More detailed logging across different levels:
-  - Debug logs for development
-  - Info logs for important events
-  - Warning logs for potential issues
-  - Error logs for failures
-- ✅ Improved error handling and logging
-
-**New Files:**
+```bash
+npm run dev
 ```
+
+Open:
+```plaintext
+http://localhost:3000
+```
+
+Testing Steps:
+- Click Login button
+- Check console logs
+- Verify POST requests to logging API
+
+--------------------------------------------------
+
+# Stage 2: Enhanced Logging Features
+
+Objective:
+Expand logging coverage with advanced hooks, utilities, and state management.
+
+--------------------------------------------------
+
+## What's Added
+
+### Custom Hooks
+- useForm
+- useFetch
+
+### Utility Functions
+- storage.js for localStorage logging
+
+### Authentication Utilities
+- auth/authUtils.js
+
+### Configuration
+- config/config.js
+
+### Advanced Logging Levels
+- debug
+- info
+- warn
+- error
+- fatal
+
+### Improvements
+- Better error handling
+- Detailed logging
+- State management logging
+
+--------------------------------------------------
+
+## New Files
+
+```plaintext
 Stage 2 additions:
-├── src/hooks/useForm.js               (Form hook with logging)
-├── src/hooks/useFetch.js              (Fetch hook with logging)
-├── src/utils/storage.js               (Storage utilities with logging)
-├── src/auth/authUtils.js              (Auth functions with logging)
-├── src/config/config.js               (Configuration with logging)
-└── STAGES.md                          (This file - stage documentation)
+
+├── src/hooks/useForm.js
+├── src/hooks/useFetch.js
+├── src/utils/storage.js
+├── src/auth/authUtils.js
+├── src/config/config.js
+└── STAGES.md
 ```
 
-**Features:**
-- Multiple log levels for different scenarios
-- Hooks for common patterns with built-in logging
+--------------------------------------------------
+
+## Features
+
+- Multiple logging levels
+- Hooks with built-in logging
 - Authentication flow logging
 - State management logging
 - Configuration logging
 
-**Usage Examples:**
+--------------------------------------------------
+
+## Usage Examples
 
 ### Forms
+
 ```javascript
-const { values, handleChange, handleSubmit } = useForm(
+const {
+  values,
+  handleChange,
+  handleSubmit
+} = useForm(
   { email: "", password: "" },
   async (values) => await loginUser(values)
 );
 ```
 
+--------------------------------------------------
+
 ### Data Fetching
+
 ```javascript
-const { data, loading, error } = useFetch("https://api.example.com/data");
+const {
+  data,
+  loading,
+  error
+} = useFetch(
+  "https://api.example.com/data"
+);
 ```
 
+--------------------------------------------------
+
 ### Storage
+
 ```javascript
 setStorageItem("token", authToken);
+
 const token = getStorageItem("token");
 ```
 
+--------------------------------------------------
+
 ### Authentication
+
 ```javascript
-await login("user@example.com", "password");
+await login(
+  "user@example.com",
+  "password"
+);
+
 await logout();
 ```
 
----
+--------------------------------------------------
 
-## Stage 3 (Future): Advanced Features
+# Stage 3: Future Enhancements
 
-**Planned enhancements:**
-- Local storage integration for logs
-- Log analytics and filtering
-- Advanced state management (Context/Redux)
-- Error boundary with logging
+Planned Features:
+- Local storage log persistence
+- Log analytics
+- Log filtering
+- Advanced state management
+- Error boundary logging
 - Performance monitoring
 - Session tracking
 - Network request interceptors
 
----
+--------------------------------------------------
 
-## How Logging Works
+# How Logging Works
 
-All logs follow this pattern:
+All logs follow this format:
 
 ```javascript
-Log("frontend", "level", "package", "message")
+Log(
+  "frontend",
+  "level",
+  "package",
+  "message"
+)
 ```
 
-**Valid Values:**
-- **Stack**: `"frontend"` (always lowercase)
-- **Levels**: `"debug"`, `"info"`, `"warn"`, `"error"`, `"fatal"` (lowercase)
-- **Packages**: `"api"`, `"component"`, `"hook"`, `"page"`, `"state"`, `"style"`, `"auth"`, `"config"`, `"middleware"`, `"utils"` (lowercase)
+--------------------------------------------------
 
-**API Endpoint:**
-- URL: `http://4.224.186.213/evaluation-service/logs`
-- Method: POST
-- Body: `{ stack, level, package: packageName, message }`
+## Valid Values
 
----
+### Stack
 
-## Running the Project
+```plaintext
+frontend
+```
+
+--------------------------------------------------
+
+### Levels
+
+```plaintext
+debug
+info
+warn
+error
+fatal
+```
+
+--------------------------------------------------
+
+### Packages
+
+```plaintext
+api
+component
+hook
+page
+state
+style
+auth
+config
+middleware
+utils
+```
+
+--------------------------------------------------
+
+# Logging API
+
+URL:
+```plaintext
+http://4.224.186.213/evaluation-service/logs
+```
+
+Method:
+```plaintext
+POST
+```
+
+Request Body:
+```json
+{
+  "stack": "frontend",
+  "level": "info",
+  "package": "component",
+  "message": "Button clicked"
+}
+```
+
+--------------------------------------------------
+
+# Running the Project
+
+## Install Dependencies
 
 ```bash
-# Install dependencies
 npm install
+```
 
-# Start development server
+--------------------------------------------------
+
+## Start Development Server
+
+```bash
 npm run dev
+```
 
-# Build for production
+--------------------------------------------------
+
+## Build Project
+
+```bash
 npm run build
+```
 
-# Preview production build
+--------------------------------------------------
+
+## Preview Production Build
+
+```bash
 npm run preview
 ```
 
----
+--------------------------------------------------
 
-## Project Structure
+# Project Structure
 
-```
+```plaintext
 src/
-├── api/              # API calls with logging
-├── auth/             # Authentication with logging
-├── components/       # React components with logging
-├── config/           # Configuration
-├── hooks/            # Custom React hooks with logging
-├── middleware/       # Logger middleware
-├── pages/            # Page components with logging
-├── state/            # State management
-├── styles/           # CSS styles
-├── utils/            # Utility functions with logging
-├── App.jsx           # Main App component
-└── main.jsx          # React entry point
+├── api/
+├── auth/
+├── components/
+├── config/
+├── hooks/
+├── middleware/
+├── pages/
+├── state/
+├── styles/
+├── utils/
+├── App.jsx
+└── main.jsx
 ```
 
----
+--------------------------------------------------
 
-## Evaluation Criteria
+# Evaluation Criteria
 
-✅ **Reusable Logger Function** - Check `src/middleware/logger.js`
-✅ **Proper API Integration** - Posts to correct endpoint
-✅ **Meaningful Logs** - Clear messages describing events
-✅ **Correct Package Names** - All lowercase, exact values
-✅ **Frontend Integration** - Logs across multiple files
-✅ **Clean Project Structure** - Organized folders
-✅ **Error Handling** - Try-catch blocks with error logs
-✅ **Async Operations** - Non-blocking log calls
+- Reusable Logger Function
+- Proper API Integration
+- Meaningful Logs
+- Correct Package Names
+- Frontend Integration
+- Clean Project Structure
+- Error Handling
+- Async Operations
 
+--------------------------------------------------
+
+# Final Status
+
+Stage 1 Completed
+Stage 2 Completed
+Ready for Evaluation
