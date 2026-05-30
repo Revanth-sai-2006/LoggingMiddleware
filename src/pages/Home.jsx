@@ -14,8 +14,8 @@ import {
   Edit as EditIcon,
   People as PeopleIcon,
   Dashboard as DashboardIcon,
-  API as APIIcon,
-  Flash as FlashIcon,
+  Code as APIIcon,
+  Bolt as FlashIcon,
 } from "@mui/icons-material";
 
 const Home = () => {

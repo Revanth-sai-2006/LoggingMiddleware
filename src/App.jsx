@@ -13,7 +13,6 @@ import {
   Container,
   Box,
   Button,
-  Footer,
 } from "@mui/material";
 import {
   Home as HomeIcon,
