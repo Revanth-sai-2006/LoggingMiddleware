@@ -56,7 +56,7 @@ function App() {
     <ErrorBoundary>
       <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         {/* AppBar Header */}
-        <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
+        <AppBar position="static" sx={{ backgroundColor: "#DAA520" }}>
           <Toolbar>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               Frontend Logging System
@@ -78,7 +78,7 @@ function App() {
                   startIcon={<Icon />}
                   sx={{
                     color: currentPage === item.id ? "white" : "#333",
-                    borderColor: currentPage === item.id ? "#1976d2" : "#ddd",
+                    borderColor: currentPage === item.id ? "#DAA520" : "#ddd",
                   }}
                 >
                   {item.label}

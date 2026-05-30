@@ -7,7 +7,7 @@ import './styles/index.css'
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#1976d2',
+      main: '#DAA520',
     },
     secondary: {
       main: '#dc004e',

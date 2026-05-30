@@ -159,7 +159,7 @@ const Dashboard = () => {
               <Typography color="textSecondary" variant="body2">
                 Active Users
               </Typography>
-              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#DAA520" }}>
                 1,234
               </Typography>
             </Box>
@@ -169,7 +169,7 @@ const Dashboard = () => {
               <Typography color="textSecondary" variant="body2">
                 Total Events Logged
               </Typography>
-              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#DAA520" }}>
                 {Math.floor(Math.random() * 10000)}
               </Typography>
             </Box>
@@ -189,7 +189,7 @@ const Dashboard = () => {
               <Typography color="textSecondary" variant="body2">
                 Uptime
               </Typography>
-              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#1976d2" }}>
+              <Typography variant="h6" sx={{ fontWeight: "bold", color: "#DAA520" }}>
                 99.9%
               </Typography>
             </Box>
