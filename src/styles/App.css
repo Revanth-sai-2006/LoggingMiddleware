@@ -3,6 +3,9 @@
   margin: 0 auto;
   padding: 20px;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 header {
@@ -10,6 +13,7 @@ header {
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
+  border: 1px solid #ddd;
 }
 
 header h1 {
@@ -17,11 +21,46 @@ header h1 {
   color: #333;
 }
 
+.nav-buttons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.nav-buttons button {
+  background-color: #e9ecef;
+  color: #333;
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s;
+}
+
+.nav-buttons button:hover {
+  background-color: #dee2e6;
+  border-color: #999;
+}
+
+.nav-buttons button.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
 main {
   background-color: white;
   padding: 20px;
   border-radius: 8px;
   border: 1px solid #ddd;
+  flex: 1;
+}
+
+footer {
+  background-color: #f9f9f9;
+  text-align: center;
+  margin-top: auto;
 }
 
 button {
@@ -37,4 +76,39 @@ button {
 
 button:hover {
   background-color: #0056b3;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #555;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
